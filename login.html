@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<style>
+    .top .title {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+</style>
+<html lang="pt-BR">
+    <script src="connect.js"></script>
+    <script>
+    connectToDatabase();
+    function validateLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (!username || !password) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        fetch('validateLogin.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ DS_LOGIN: username, DS_PASSWORD: password }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Login realizado com sucesso!');
+                // Redirecionar ou realizar outra ação
+            } else {
+                alert('Usuário ou senha inválidos.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao validar login:', error);
+            alert('Ocorreu um erro ao validar o login.');
+        });
+    }
+    </script>
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .top {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            position: relative;
+            text-align: center;
+        }
+        .top img {
+            display: block;
+            margin: 20px auto;
+        }
+        .top .title {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .bottom {
+            background-color: #d3d3d3;
+            padding: 20px;
+        }
+        .bottom label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .bottom input {
+            width: calc(100% - 20px);
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+        .bottom .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .bottom button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .bottom button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <span class="title">Login</span>
+            <img src="LOGO.BMP" alt="Logo" width="100">
+        </div>
+        <div class="bottom">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password">
+            <div class="buttons">
+                <button type="button" onclick="validateLogin()">OK</button>
+                <button type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

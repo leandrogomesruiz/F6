@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresso</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            position: relative;
+        }
+        .ticket {
+            border: 1px solid #000;
+            padding: 15px;
+            width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ticket-info {
+            width: 75%;
+        }
+        .barcode {
+            text-align: center;
+            transform: rotate(90deg); /* Rotaciona o código de barras */
+        }
+        .barcode svg {
+            width: 100px;
+            height: auto;
+        }
+        .ticket-info h1 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .ticket-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .qr-code {
+            text-align: center;
+        }
+        .qr-code img {
+            display: block;
+            margin: 0 auto 10px;
+            width: 100px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+        }
+        .footer {
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="barcode">
+            <svg id="barcode"></svg>
+        </div>
+        <div class="ticket-info">
+            <h1>TICKET</h1>
+            <p><strong>Ingresso:</strong> 000038 - INGRESSO ALTA TEMPORADA</p>
+            <p><strong>Visitante:</strong> CONSUMIDOR FINAL</p>
+            <p><strong>Venda:</strong> BILHETERIA: 000094689</p>
+            <p><strong>Validade:</strong> 01/01/2024 - 30/11/2024</p>
+            <p><strong>Giros:</strong> 1</p>
+            <p><strong>Quantidade:</strong> 1/4</p>
+            <p><strong>Data da visita:</strong> 28/03/2025</p>
+            <p><em>VÁLIDO APENAS AOS FINAIS DE SEMANA</em></p>
+        </div>
+        <div class="qr-code">
+            <img src="LOGO.BMP" alt="Logo">
+            <canvas id="qrcode"></canvas>
+        </div>
+    </div>
+    <div class="footer">
+        HORÁRIO DO PARQUE 10:00 À 17:30 - Alvará 80085
+    </div>
+    <!-- Removido o botão e o script relacionado -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        // Generate barcode
+        JsBarcode("#barcode", "10800001533030", {
+            format: "CODE128",
+            displayValue: false
+        });
+
+        // Generate QR code
+        QRCode.toCanvas(document.getElementById("qrcode"), "10800001533030", function (error) {
+            if (error) console.error(error);
+        });
+
+        // Ask to print on page load
+        window.onload = function () {
+            if (confirm("Deseja imprimir o conteúdo da página?")) {
+                window.print();
+            }
+        };
+    </script>
+</body>
+</html>
